@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.goit.dev10.configs.ConnectionConfig.CREATE_TABLE;
 import static com.goit.dev10.configs.ConnectionConfig.TABLE_NAME;
@@ -61,16 +58,17 @@ public class Main {
     }
 
 
-    public static Map resultSetToHashMap(ResultSet rs) throws SQLException {
+    public static List<Map<String,String>> resultSetToHashMap(ResultSet rs) throws SQLException {
 
         ResultSetMetaData md = rs.getMetaData();
-
-        Map<String,String> row = new LinkedHashMap<>();
+        List<Map<String,String>> resp = new LinkedList<>();
         while (rs.next()) {
+            Map<String,String> row = new LinkedHashMap<>();
             for (int i = 1; i <= md.getColumnCount(); i++) {
                 row.put(md.getColumnName(i), rs.getString(i));
             }
+            resp.add(row);
         }
-        return row;
+        return resp;
     }
 }
