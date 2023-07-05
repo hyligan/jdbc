@@ -3,7 +3,7 @@ package com.goit.dev10.configs;
 public class ConnectionConfig {
     private ConnectionConfig() {
     }
-
+    public static final int BATCH_SIZE = 30;
     public static final String URL_JDBC = "jdbc:postgresql://localhost:5432/shopdb";
     public static final String USER = "myuser";
     public static final String PASSWORD ="mysecretpassword";

@@ -25,15 +25,15 @@ public enum JdbcPool {
             connectionsFree = new LinkedList<>();
             connectionsInUse = new LinkedList<>();
             initPool();
-            logger.info("init!");
+//            logger.debug("init!");
         }
         if(connectionsFree.size()==0){
 
             if(connectionsInUse.size()<maxSize){
-                logger.info("creating new!");
+//                logger.debug("creating new!");
                 connectionsFree.add(getConnection());
             }else {
-                logger.info("waiting!");
+//                logger.info("waiting!");
                 Thread.sleep(500);
                 return getConnectionFromPool();
             }
@@ -43,17 +43,17 @@ public enum JdbcPool {
             Connection connection = connectionOpt.get();
             connectionsFree.remove(connection);
             connectionsInUse.add(connection);
-            logger.info("adding!");
+//            logger.debug("adding!");
             return connection;
         }else {
-            logger.info("wrong way!");
+//            logger.debug("wrong way!");
             return getConnectionFromPool();
         }
 
     }
 
     public void freeConnection(Connection connection){
-        logger.info("try to free connection: {}", connection);
+//        logger.debug("try to free connection: {}", connection);
         if(Objects.nonNull(connection)) {
             connectionsInUse.remove(connection);
             connectionsFree.add(connection);
